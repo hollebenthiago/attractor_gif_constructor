@@ -9,15 +9,15 @@ def F(t, xs, args):
   x = xs[0]                  
   y = xs[1]                  
   z = xs[2]                  
-  X = np.sin(6*y) -np.cos(-0.3*z)                     
-  Y = -np.sin(3*x) + np.cos(16*z)                     
-  Z = np.cos(2*x) - np.sin(3*y)                     
+  X = args[0]*(y-x)                     
+  Y = x*(args[1] - z)                     
+  Z = x*y - args[2]*z                     
   return np.array([X, Y, Z]) 
 h = 0.01   
-tmax = 2004  
-args = []  
-x0 = np.array([0.5, 0.5, 0.5])    
-n = 3     
+tmax = 100  
+args = [10, 28, 8/3]  
+x0 = np.array([8, 5, 13])    
+n = 2     
 Xs_m1 = euler(F, np.linspace(0, tmax, tmax), x0, h, args)[0] 
 xs_m1 = euler(F, np.linspace(0, tmax, tmax), x0, h, args)[0][0] 
 ys_m1 = euler(F, np.linspace(0, tmax, tmax), x0, h, args)[0][1] 
@@ -51,4 +51,4 @@ ax.set_yticks([])
 ax.set_zticks([]) 
 ax.legend(loc='upper right') 
 line_ani = animation.FuncAnimation(fig, update_lines, np.arange(0, tmax, 2), fargs=(data, lines, ax),interval=50, blit=False) 
-line_ani.save('gifs/clifford3.mp4')
+line_ani.save('gifs/lorenz_teste.mp4')
